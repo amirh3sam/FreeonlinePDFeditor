@@ -282,7 +282,7 @@ describe('Editor — drawing tools', () => {
   });
   t('select, move, resize, delete, eraser', async pg => {
     await H.openEditor(pg, fx.single); await pg.click('[data-tool=rect]'); await H.drag(pg, 0, 100, 100, 200, 200);
-    await pg.click('[data-tool=select]'); await H.drag(pg, 0, 150, 100, 250, 150);
+    await pg.click('[data-tool=select]'); await H.drag(pg, 0, 150, 150, 250, 200);
     let a = await pg.evaluate(() => S.pages[0].annots[0]); assert.ok(Math.abs(a.x - 200) < 3 && Math.abs(a.y - 150) < 3, 'moved');
     const h = await pg.$('.handle'); const b = await h.boundingBox(); await pg.mouse.move(b.x + 5, b.y + 5); await pg.mouse.down(); await pg.mouse.move(b.x + 60, b.y + 60, { steps: 4 }); await pg.mouse.up();
     a = await pg.evaluate(() => S.pages[0].annots[0]); assert.ok(a.w > 120, 'resized');
@@ -300,6 +300,26 @@ describe('Editor — drawing tools', () => {
     await H.openEditor(pg, fx.single);
     for (const [k, tool] of [['t', 'text'], ['d', 'pen'], ['h', 'highlight'], ['w', 'whiteout'], ['b', 'rect'], ['l', 'line'], ['a', 'arrow'], ['n', 'note'], ['e', 'erase'], ['x', 'edittext'], ['v', 'select']]) {
       await pg.keyboard.press(k); assert.equal(await pg.evaluate(() => S.tool), tool, k);
+    }
+  });
+  t('toolbar arrows reveal hidden tools on narrow screens', async pg => {
+    await pg.setViewportSize({ width: 700, height: 800 }); await H.openEditor(pg, fx.single);
+    assert.ok(await pg.isHidden('.sx .arr.l'), 'no left arrow at start'); assert.ok(await pg.isVisible('.sx .arr.r'), 'right arrow shows more tools');
+    await pg.click('.sx .arr.r'); await pg.waitForFunction(() => document.querySelector('#tools').scrollLeft > 50);
+    assert.ok(await pg.isVisible('.sx .arr.l'), 'left arrow appears after scrolling');
+    for (let i = 0; i < 6; i++) { if (await pg.isHidden('.sx .arr.r')) break; await pg.click('.sx .arr.r'); await pg.waitForTimeout(400); }
+    assert.ok(await pg.isHidden('.sx .arr.r'), 'right arrow hides at the end'); assert.ok(await pg.isVisible('#signBtn'));
+    await pg.setViewportSize({ width: 1400, height: 900 }); await pg.waitForTimeout(200);
+    assert.ok(await pg.isHidden('.sx .arr.r') && await pg.isHidden('.sx .arr.l'), 'wide screen: every tool visible, no arrows');
+  });
+  t('selecting an item never shifts the page (no layout jump)', async pg => {
+    await H.openEditor(pg, fx.single);
+    for (const width of [700, 1200, 1300, 1600]) {
+      await pg.setViewportSize({ width, height: 900 }); await pg.evaluate(() => { S.pages[0].annots = []; select(null); drawAnnots(S.pages[0]); }); await pg.waitForTimeout(150);
+      await pg.click('[data-tool=rect]'); await H.drag(pg, 0, 100, 100, 200, 200); await pg.click('[data-tool=select]');
+      const y0 = (await (await pg.$('.page')).boundingBox()).y; await H.tap(pg, 0, 150, 150);
+      assert.ok(await pg.evaluate(() => !!selAnnot()), 'selected'); const y1 = (await (await pg.$('.page')).boundingBox()).y;
+      assert.equal(Math.round(y1), Math.round(y0), `page moved at ${width}px`);
     }
   });
   t('zoom in/out', async pg => {
@@ -351,6 +371,7 @@ describe('Mobile', () => {
   t('home, a tool page and the editor work on a phone screen', async pg => {
     await pg.goto(H.APP); assert.equal(await pg.$$eval('#toolGrid .tool', t => t.length), 12);
     const w = await pg.evaluate(() => document.documentElement.scrollWidth); assert.ok(w <= 390, 'no sideways scroll');
+    assert.deepEqual(await pg.$$eval('#home .tnav a', a => a.filter(x => getComputedStyle(x).display !== 'none').map(x => x.textContent)), ['All tools'], 'phone nav is not cut off');
     await H.openWork(pg, 'merge', [fx.single, fx.two]); assert.ok(await pg.isVisible('#fGo'));
     await H.go(pg); assert.equal((await H.inspect((await H.grab(pg)).bytes)).count, 3);
     await H.openEditor(pg, fx.single); assert.ok(await pg.isVisible('#pagesBtn')); await pg.click('#pagesBtn'); assert.ok(await pg.isVisible('.th'));

@@ -41,7 +41,7 @@ Keyboard shortcuts in the editor: `V` select · `X` edit text · `T` add text ·
 
 ## Tests
 
-55 automated end-to-end tests ([Playwright](https://playwright.dev) + `node:test`) cover every tool and option. They don't just click through the app: each test opens the downloaded file and checks what's inside, including page count, rotation, extracted text, embedded images, zip contents and JPG pixel sizes. They run on every push via GitHub Actions.
+57 automated end-to-end tests ([Playwright](https://playwright.dev) + `node:test`) cover every tool and option. They don't just click through the app: each test opens the downloaded file and checks what's inside, including page count, rotation, extracted text, embedded images, zip contents and JPG pixel sizes. They run on every push via GitHub Actions.
 
 ```bash
 cd tests && npm install && npx playwright install chromium && npm test

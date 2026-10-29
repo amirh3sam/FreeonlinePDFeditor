@@ -161,6 +161,17 @@ label.chk{display:flex;gap:6px;align-items:center;color:var(--mute)}
 .homebtn{cursor:pointer}
 @media (max-width:600px){.tgrid{grid-template-columns:1fr 1fr;gap:10px;padding:8px 12px 40px}.tool{padding:14px}.tool .ic{width:38px;height:38px;font-size:18px;margin-bottom:10px}.tool h3{font-size:15px}.tool p{font-size:12.5px}.hero{padding:34px 16px 18px}.hero p{font-size:15px}.big{padding:16px 30px!important;font-size:18px!important}}
 @media (max-width:860px){.work{grid-template-columns:1fr;min-height:0}.wmain{padding:18px 12px 24px}.wside{position:static;height:auto;border-left:none;border-top:1px solid var(--line)}.pcard{width:140px}.pcard .th2{width:120px;height:156px}.pcard .th2 img{max-width:120px;max-height:156px}.pcard .acts{opacity:1}.topbar{gap:12px;padding:12px 14px}}
+/* ---------- scrollable bars: arrows + fades so hidden items are discoverable ---------- */
+.sx{position:relative;flex:none}
+.sx .arr{position:absolute;top:0;bottom:0;width:46px;border:none;border-radius:0;display:flex;align-items:center;justify-content:center;z-index:4;font-size:22px;font-weight:700;color:var(--teal);padding:0;cursor:pointer}
+.sx .arr.l{left:0;justify-content:flex-start;padding-left:8px;background:linear-gradient(90deg,var(--panel) 50%,rgba(17,23,34,0))}
+.sx .arr.r{right:0;justify-content:flex-end;padding-right:8px;background:linear-gradient(270deg,var(--panel) 50%,rgba(17,23,34,0))}
+.sx .arr.off{display:none}
+.sx .arr span{width:30px;height:30px;border-radius:50%;background:var(--teal);color:#0a0e14;display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;padding-bottom:2px;box-shadow:0 2px 12px rgba(0,0,0,.6)}
+.sx .arr.r span{animation:nudge 1s ease-in-out 3}
+@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(5px);box-shadow:0 0 0 6px rgba(63,224,197,.25)}}
+@media (min-width:1180px){#tools{flex-wrap:wrap;row-gap:6px;align-content:flex-start;min-height:94px}} /* fixed 2-row height: selecting an item never shifts the page */
+@media (max-width:600px){.tnav a:not(:last-child){display:none}.tnav a:last-child{color:var(--teal)}}
 </style>
 </head>
 <body>
@@ -1395,6 +1406,16 @@ document.addEventListener('drop', async e => {
   if (imgs.length) await addImagePages(imgs);
 });
 window.addEventListener('beforeunload', e => { if (S.dirty && VIEW === 'editor') { e.preventDefault(); e.returnValue = ''; } });
+function scrollArrows(bar) {
+  const wrap = document.createElement('div'); wrap.className = 'sx'; bar.parentNode.insertBefore(wrap, bar); wrap.append(bar);
+  const mk = (cls, txt, dir) => { const b = document.createElement('button'); b.className = 'arr ' + cls; b.innerHTML = `<span>${txt}</span>`; b.title = dir > 0 ? 'More tools' : 'Back'; b.onclick = () => bar.scrollBy({ left: dir * bar.clientWidth * .7, behavior: 'smooth' }); wrap.append(b); return b; };
+  const l = mk('l', '‹', -1), r = mk('r', '›', 1);
+  const upd = () => { l.classList.toggle('off', bar.scrollLeft < 4); r.classList.toggle('off', bar.scrollLeft + bar.clientWidth >= bar.scrollWidth - 4); };
+  bar.addEventListener('scroll', upd, { passive: true }); window.addEventListener('resize', upd); new ResizeObserver(upd).observe(bar);
+  bar.addEventListener('wheel', e => { if (Math.abs(e.deltaY) > Math.abs(e.deltaX) && bar.scrollWidth > bar.clientWidth) { bar.scrollLeft += e.deltaY; e.preventDefault(); } }, { passive: false });
+  upd(); return upd;
+}
+scrollArrows($('#tools'));
 setColor('#111111'); updProps(); updBtns(); route();
 </script>
 </body>
