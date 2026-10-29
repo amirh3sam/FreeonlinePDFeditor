@@ -172,6 +172,12 @@ label.chk{display:flex;gap:6px;align-items:center;color:var(--mute)}
 @keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(5px);box-shadow:0 0 0 6px rgba(63,224,197,.25)}}
 @media (min-width:1180px){#tools{flex-wrap:wrap;row-gap:6px;align-content:flex-start;min-height:94px}} /* fixed 2-row height: selecting an item never shifts the page */
 @media (max-width:600px){.tnav a:not(:last-child){display:none}.tnav a:last-child{color:var(--teal)}}
+.backbtn{position:absolute;left:22px;top:18px;background:none;border:1px solid var(--line);color:var(--text);font-weight:600;z-index:3}
+.backbtn:hover{border-color:var(--teal);color:var(--teal)}
+#fSelect,#fWork,#fDone{position:relative}
+#fWork .backbtn{position:static;margin:0 0 16px}
+#edBack{font-weight:600}
+@media (max-width:600px){.backbtn{left:12px;top:10px;padding:6px 10px}}
 </style>
 </head>
 <body>
@@ -187,6 +193,7 @@ label.chk{display:flex;gap:6px;align-items:center;color:var(--mute)}
 <div id="flow" class="view hide">
   <div class="topbar"><div class="logo homebtn"><i></i>PDF Studio</div><nav class="tnav"></nav></div>
   <section id="fSelect">
+    <button class="backbtn" id="bkSelect">← All tools</button>
     <div class="hero">
       <h1 id="fTitle"></h1><p id="fDesc"></p>
       <div class="pickzone" id="fZone">
@@ -197,10 +204,11 @@ label.chk{display:flex;gap:6px;align-items:center;color:var(--mute)}
     </div>
   </section>
   <section id="fWork" class="work hide">
-    <div class="wmain"><div class="pgrid" id="fGrid"></div></div>
+    <div class="wmain"><button class="backbtn" id="bkWork">← Back</button><div class="pgrid" id="fGrid"></div></div>
     <aside class="wside"><h2 id="fSideTitle"></h2><div id="fOpts" style="display:flex;flex-direction:column;gap:16px"></div><button class="big" id="fGo"></button></aside>
   </section>
   <section id="fDone" class="hide">
+    <button class="backbtn" id="bkDone">← Back</button>
     <div class="hero donebox">
       <div class="done-ic">✓</div>
       <h1 id="fDoneTitle">Your file is ready</h1><p id="fInfo"></p>
@@ -212,6 +220,7 @@ label.chk{display:flex;gap:6px;align-items:center;color:var(--mute)}
 <div id="app">
   <header>
     <div class="logo"><i></i><span class="wide">PDF Studio</span></div>
+    <button id="edBack" title="Back to all tools">←<span class="wide">&nbsp;All tools</span></button>
     <button id="pagesBtn">☰</button>
     <span id="fname"></span>
     <div class="grow"></div>
@@ -1369,6 +1378,11 @@ $('#fGo').onclick = () => busy($('#fGo'), 'Working…', async () => {
 $('#fDl').onclick = () => busy($('#fDl'), 'Downloading…', async () => { if (F.result && await saveBytes(F.result.name, F.result.data)) toast('Downloaded ✓'); });
 $('#fBack').onclick = () => { if (F.tool === 'jpg-to-pdf' || F.tool === 'merge') S.pages = []; showStage('work'); renderWork(); };
 $('#fHome').onclick = () => { location.hash = ''; route(); };
+const goHome = () => { location.hash = ''; route(); };
+$('#bkSelect').onclick = goHome;
+$('#bkWork').onclick = () => { F.files = []; F.images = []; F.sel = new Set(); F.result = null; showStage('select'); };
+$('#bkDone').onclick = () => $('#fBack').click();
+$('#edBack').onclick = () => { closeEditor(true); goHome(); };
 $('#fEdit').onclick = () => { F.stage = 'editor'; const t = curTool(); if (t) { showView('editor'); fitZoom(); rebuild(); } };
 
 

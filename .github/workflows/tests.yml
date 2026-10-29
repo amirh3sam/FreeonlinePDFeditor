@@ -52,5 +52,5 @@ jobs:
         run: |
           set -o pipefail
           npm test 2>&1 | tee result.txt || {
-            grep -E "✖|Error|assert|expected|actual|Timeout|waiting for" result.txt | grep -v "^\s*at " | head -40 | while IFS= read -r l; do echo "::error::$l"; done
+            grep -v "Warning" result.txt | grep -E -A4 "^\s*✖ |^test at " | grep -E "✖|Error|expected|actual|Timeout|waiting for|failed" | grep -v "^\s*at " | head -60 | while IFS= read -r l; do echo "::error::$l"; done
             exit 1; }

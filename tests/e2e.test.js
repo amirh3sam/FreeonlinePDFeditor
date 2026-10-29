@@ -37,6 +37,18 @@ describe('Home & navigation', () => {
     await pg.goto(H.APP); const links = await pg.$$eval('#home .tnav a', a => a.map(x => x.getAttribute('href')));
     assert.ok(links.includes('#merge') && links.includes('#jpg-to-pdf') && links.includes('#'));
   });
+  t('back buttons on every screen', async pg => {
+    await pg.goto(H.APP + '#split'); await pg.click('#bkSelect'); await pg.waitForSelector('#home:not(.hide)');
+    await H.openWork(pg, 'split', [fx.three]); await pg.click('#bkWork'); await pg.waitForSelector('#fSelect:not(.hide)');
+    assert.equal(await pg.evaluate(() => F.files.length), 0, 'file cleared so a new one can be picked');
+    const [fc] = await Promise.all([pg.waitForEvent('filechooser'), pg.click('#fPick')]); await fc.setFiles(fx.two); await pg.waitForSelector('#fWork:not(.hide)');
+    assert.equal(await pg.$$eval('#fGrid .pcard', c => c.length), 2, 'new file loaded');
+    await H.seg(pg, 'mode', 'every'); await H.go(pg); await pg.click('#bkDone'); await pg.waitForSelector('#fWork:not(.hide)');
+    await H.openEditor(pg, fx.single); await pg.click('[data-tool=text]'); await H.tap(pg, 0, 100, 300); await pg.keyboard.type('kept');
+    await pg.click('#edBack'); await pg.waitForSelector('#home:not(.hide)');
+    await pg.click('#toolGrid a[href="#fill-forms"]'); await pg.waitForFunction(() => VIEW === 'editor');
+    assert.equal(await pg.evaluate(() => S.pages[0].annots[0].text), 'kept', 'edits kept after going back');
+  });
   t('wrong file type is rejected with a message', async pg => {
     await H.openTool(pg, 'merge', [fx.png]); assert.match(await H.toastText(pg), /PDF/);
     await H.openTool(pg, 'jpg-to-pdf', [fx.single]); assert.match(await H.toastText(pg), /image/i);
