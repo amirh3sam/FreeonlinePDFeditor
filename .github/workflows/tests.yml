@@ -2,7 +2,10 @@ name: E2E tests
 on:
   push:
   pull_request:
+  workflow_dispatch:
+
 jobs:
+  # 1) the code in this commit
   e2e:
     runs-on: ubuntu-latest
     defaults:
@@ -16,3 +19,32 @@ jobs:
       - run: npm install
       - run: npx playwright install --with-deps chromium
       - run: npm test
+
+  # 2) the live Vercel site, once it serves this exact commit
+  production:
+    needs: e2e
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    env:
+      BASE_URL: https://freeonlinepdfeditor.vercel.app
+    defaults:
+      run:
+        working-directory: tests
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wait for Vercel to serve this commit
+        run: |
+          want=$(sha256sum ../index.html | cut -d' ' -f1)
+          for i in $(seq 1 60); do
+            got=$(curl -fsSL "$BASE_URL/?nocache=$RANDOM$i" | sha256sum | cut -d' ' -f1 || true)
+            if [ "$got" = "$want" ]; then echo "Live site matches commit ${GITHUB_SHA::7}"; exit 0; fi
+            echo "Waiting for deploy... ($i)"; sleep 10
+          done
+          echo "::error::Live site never matched this commit after 10 minutes"; exit 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - run: npx playwright install --with-deps chromium
+      - name: E2E against production
+        run: npm test

@@ -7,7 +7,8 @@ const JSZip = require('jszip');
 const pdfjs = require('pdfjs-dist/legacy/build/pdf.js');
 
 const ROOT = path.join(__dirname, '..');
-const APP = 'file://' + path.join(ROOT, 'index.html');
+// BASE_URL=https://freeonlinepdfeditor.vercel.app runs the same tests against the live site
+const APP = (process.env.BASE_URL || '').replace(/\/$/, '') || 'file://' + path.join(ROOT, 'index.html');
 const FIX = path.join(__dirname, '.fixtures');
 const OUT = path.join(__dirname, '.out');
 
