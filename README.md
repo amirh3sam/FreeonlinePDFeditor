@@ -1,75 +1,35 @@
-# Project Decision Council
+# Free Online PDF Editor
 
-A reusable Claude Code setup that evaluates software, SaaS, AI, website, app and
-business ideas **before** any development and returns one verdict:
+A free PDF editor that runs entirely in the browser. Your files never leave your device: no uploads, no account, no server.
 
-- **BUILD**: strong enough evidence to justify starting (still not authorization to start).
-- **VALIDATE FIRST**: promising, but critical assumptions remain unproven.
-- **REJECT**: the expected benefits do not justify the costs or risks.
+## Features
 
-The council never builds anything. Its only output is an evaluation report.
+- **Text**: add text anywhere, in any color or size. Persian and other non-Latin scripts work too.
+- **Sign**: draw a signature and drop it on the page.
+- **Draw**: freehand pen.
+- **Highlight**, **Whiteout** (cover existing content) and **Box** tools.
+- **Images**: insert PNG or JPG, then move and resize them.
+- **Pages**: rotate, reorder, delete, add blank pages and merge more PDFs.
+- **Select & edit**: move, resize, recolor or delete anything you added. Undo and redo.
+- Works on desktop and mobile.
 
-## Usage
+## Use it
 
-Open Claude Code in this repository and run:
+Open `index.html` in a browser, or host it as a static file (GitHub Pages works: Settings → Pages → deploy from `main`).
 
-```
-/evaluate A browser extension that summarizes long email threads for busy managers
-```
-
-The idea can be incomplete. The council asks questions only when something
-critical is missing; otherwise it proceeds and marks its assumptions.
+Keyboard shortcuts: `V` select · `T` text · `D` draw · `H` highlight · `W` whiteout · `B` box · `E` eraser · `Ctrl+Z`/`Ctrl+Y` undo/redo · `Delete` removes the selected item.
 
 ## How it works
 
-| Phase | Who | What |
-|---|---|---|
-| 1. Intake | `/evaluate` skill | Builds an Idea Brief (problem, customers, solution, alternatives, revenue, complexity, assumptions) and asks whether web research is permitted |
-| 2. Independent evaluation | `believer`, `skeptic`, `investor` | Run in parallel, each seeing only the brief |
-| 3. Judgment | `judge` | Reads all three reports and gives an independent score and one verdict |
-| 4. Report | `/evaluate` skill | Writes `evaluations/YYYY-MM-DD-<title>.md` and checks it with the validator |
+- [PDF.js](https://mozilla.github.io/pdf.js/) renders the pages.
+- [pdf-lib](https://pdf-lib.js.org/) writes your edits into the original PDF, so the existing text stays real, selectable text.
+- It's a single self-contained `index.html`. The libraries load from cdnjs.
 
-Every claim is tagged `[VERIFIED: source]`, `[ESTIMATE]` or `[ASSUMPTION]`.
-Scores (0–100) are explained judgments, not measurements.
+## Limitations
 
-## Safety boundaries
+- It doesn't edit the PDF's existing text in place. Use **Whiteout** plus **Text** to replace it.
+- Password-protected PDFs can't be opened. Pages from permission-locked PDFs are flattened into images when you save.
+- Links and form fields on rotated or flattened pages may not be kept.
 
-These are enforced in three layers:
-
-1. **Tool allowlists.** The agents have only `WebSearch` and `WebFetch`: no file writes, shell or sub-agents.
-2. **`council-guard.py` hook.** Runs while `/evaluate` or any council agent is active, and blocks:
-   - writes outside `evaluations/*.md`
-   - all shell commands except `date`, `ls evaluations/` and the report validator
-   - any subagent other than the four council members
-   - MCP and other third-party tools
-   - web research when `research` is `never`
-3. **Instructions** in every agent and in the skill.
-
-## Configuration
-
-`.claude/council.json`:
-
-- `research`: `ask` (default, asks on each run), `always`, or `never`.
-  - `never` is enforced by the hook.
-  - `ask` relies on the skill's question and the brief's "Research permitted" flag.
-
-## Files
-
-```
-.claude/agents/{believer,skeptic,investor,judge}.md   council members
-.claude/skills/evaluate/SKILL.md                     /evaluate orchestration
-.claude/skills/evaluate/report-template.md           report layout
-.claude/skills/evaluate/scripts/validate_report.py   report validator
-.claude/hooks/council-guard.py                       boundary enforcement
-.claude/council.json                                 research setting
-evaluations/                                         saved reports
-tests/                                               config, validator and guard tests
-```
-
-## Tests
-
-```
-python3 -m unittest discover -s tests
-```
-
-Only the Python standard library is needed.
+---
+Built by [AmirHesam Tech](https://amirhesamtech.com)
