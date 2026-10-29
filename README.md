@@ -1,5 +1,7 @@
 # Free Online PDF Editor
 
+**▶ Live: https://freeonlinepdfeditor.vercel.app**
+
 A free PDF editor that runs entirely in the browser. Your files never leave your device: no uploads, no account, no server.
 
 ## Features
@@ -15,7 +17,7 @@ A free PDF editor that runs entirely in the browser. Your files never leave your
 
 ## Use it
 
-Open `index.html` in a browser, or host it as a static file (GitHub Pages works: Settings → Pages → deploy from `main`).
+Go to **https://freeonlinepdfeditor.vercel.app**, or open `index.html` in any browser.
 
 Keyboard shortcuts: `V` select · `T` text · `D` draw · `H` highlight · `W` whiteout · `B` box · `E` eraser · `Ctrl+Z`/`Ctrl+Y` undo/redo · `Delete` removes the selected item.
 
