@@ -775,6 +775,7 @@ async function setTool(t) {
   S.tool = t; closeEditor(true);
   if (S.pending) { S.pending = null; hint(''); }
   document.querySelectorAll('[data-tool]').forEach(b => b.classList.toggle('on', b.dataset.tool === t));
+  if (t !== 'select') select(null); // deselect first so the default colour switch below never recolours the selection
   if (t === 'highlight' && S.color === '#111111') setColor(HL);
   if (['text', 'pen', 'rect', 'line', 'arrow', 'check', 'cross', 'date', 'edittext'].includes(t) && S.color === HL) setColor('#111111');
   if (t !== 'select') select(null);

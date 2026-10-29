@@ -1,8 +1,20 @@
 # Free Online PDF Editor — PDF Studio
 
+[![E2E tests](https://github.com/amirh3sam/FreeonlinePDFeditor/actions/workflows/tests.yml/badge.svg)](https://github.com/amirh3sam/FreeonlinePDFeditor/actions/workflows/tests.yml)
+
 **▶ Live: https://freeonlinepdfeditor.vercel.app**
 
 Every PDF tool you need, free and private. It all runs in your browser: no uploads, no sign-up, no watermarks.
+
+![PDF Studio home](screenshots/home.png)
+
+| Editor: fill forms, edit text, sign, annotate | Merge |
+|---|---|
+| ![Editor](screenshots/editor.png) | ![Merge](screenshots/merge.png) |
+| **Watermark (live preview)** | **Compress** |
+| ![Watermark](screenshots/watermark.png) | ![Compress](screenshots/compress-done.png) |
+
+![Mobile](screenshots/mobile.png)
 
 ## Tools
 
@@ -26,6 +38,16 @@ Each tool has its own link, for example `/#merge`, `/#compress` or `/#sign`.
 The editor also has highlight, whiteout, box, freehand drawing, undo/redo, zoom, and a page sidebar.
 
 Keyboard shortcuts in the editor: `V` select · `X` edit text · `T` add text · `D` draw · `H` highlight · `W` whiteout · `B` box · `L` line · `A` arrow · `N` note · `E` eraser · `Ctrl+Z`/`Ctrl+Y` · `Ctrl+S` save · `Delete`.
+
+## Tests
+
+55 automated end-to-end tests ([Playwright](https://playwright.dev) + `node:test`) cover every tool and option. They don't just click through the app: each test opens the downloaded file and checks what's inside, including page count, rotation, extracted text, embedded images, zip contents and JPG pixel sizes. They run on every push via GitHub Actions.
+
+```bash
+cd tests && npm install && npx playwright install chromium && npm test
+```
+
+![Test results](screenshots/tests.png)
 
 ## How it works
 

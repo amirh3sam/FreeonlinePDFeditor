@@ -1,0 +1,14 @@
+{
+  "name": "pdf-studio-tests",
+  "private": true,
+  "description": "End-to-end tests for PDF Studio",
+  "scripts": {
+    "test": "node --test --test-reporter=spec e2e.test.js"
+  },
+  "devDependencies": {
+    "jszip": "3.10.1",
+    "pdf-lib": "1.17.1",
+    "pdfjs-dist": "3.11.174",
+    "playwright": "^1.48.0"
+  }
+}
