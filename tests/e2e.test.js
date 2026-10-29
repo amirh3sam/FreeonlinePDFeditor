@@ -358,8 +358,8 @@ describe('Editor — signatures', () => {
     await H.openTool(pg, 'sign', [fx.single]); await pg.waitForSelector('#sigModal.show');
     const pad = await (await pg.$('#sigPad')).boundingBox();
     await pg.mouse.move(pad.x + 40, pad.y + 100); await pg.mouse.down(); await pg.mouse.move(pad.x + 200, pad.y + 60, { steps: 8 }); await pg.mouse.move(pad.x + 300, pad.y + 140, { steps: 8 }); await pg.mouse.up();
-    await pg.click('#sigUse'); await H.tap(pg, 0, 300, 600);
-    await pg.click('#signBtn'); await pg.click('#tabType'); await pg.fill('#sigType', 'Amir Hesam'); await pg.click('#sigUse'); await H.tap(pg, 0, 300, 700);
+    await pg.click('#sigUse'); await pg.waitForSelector('#hint:visible'); await H.tap(pg, 0, 300, 600);
+    await pg.click('#signBtn'); await pg.click('#tabType'); await pg.fill('#sigType', 'Amir Hesam'); await pg.click('#sigUse'); await pg.waitForSelector('#hint:visible'); await H.tap(pg, 0, 300, 700);
     assert.equal(await pg.evaluate(() => S.pages[0].annots.filter(a => a.type === 'image').length), 2);
     await pg.click('#signBtn'); assert.equal(await pg.$$eval('.ssig', s => s.length), 2, 'both remembered');
     await pg.click('.ssig:first-child img'); await H.tap(pg, 0, 100, 200);

@@ -844,7 +844,9 @@ $('#sigUse').onclick = async () => {
   if (sigMode === 'draw') { if (!padInk) return toast('Draw your signature first'); o = cropCanvas(pad); }
   else {
     const txt = $('#sigType').value.trim(); if (!txt) return toast('Type your name first');
-    try { await document.fonts.load('600 110px "Dancing Script"'); } catch (e) { }
+    const ub = $('#sigUse'); ub.disabled = true; ub.textContent = 'Loading font…';
+    try { await Promise.race([document.fonts.load('600 110px "Dancing Script"'), new Promise(r => setTimeout(r, 4000))]); } catch (e) { }
+    ub.disabled = false; ub.textContent = 'Place';
     const c = document.createElement('canvas'); const x = c.getContext('2d'); x.font = '600 110px "Dancing Script", cursive';
     c.width = Math.ceil(x.measureText(txt).width) + 80; c.height = 200; x.font = '600 110px "Dancing Script", cursive'; x.fillStyle = padColor; x.textBaseline = 'middle'; x.fillText(txt, 40, 100);
     o = cropCanvas(c);
