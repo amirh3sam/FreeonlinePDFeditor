@@ -51,6 +51,4 @@ jobs:
       - name: E2E against production
         run: |
           set -o pipefail
-          npm test 2>&1 | tee result.txt || {
-            grep -v "Warning" result.txt | grep -E -A4 "^\s*✖ |^test at " | grep -E "✖|Error|expected|actual|Timeout|waiting for|failed" | grep -v "^\s*at " | head -60 | while IFS= read -r l; do echo "::error::$l"; done
-            exit 1; }
+          npm test 2>&1 | tee result.txt || { node report.js result.txt; exit 1; }
