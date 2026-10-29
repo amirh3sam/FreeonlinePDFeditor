@@ -3,7 +3,8 @@
   "private": true,
   "description": "End-to-end tests for PDF Studio",
   "scripts": {
-    "test": "node --test --test-reporter=spec e2e.test.js"
+    "test": "node --test --test-reporter=spec e2e.test.js",
+    "test:live": "LIVE_CDN=1 node --test --test-reporter=spec --test-name-pattern=\"home lists all 12 tools|merges in order and keeps all pages|level .rec. makes the file smaller|fill every kind of form field|draw, type, save, reuse|home, a tool page and the editor work on a phone\" e2e.test.js"
   },
   "devDependencies": {
     "jszip": "3.10.1",

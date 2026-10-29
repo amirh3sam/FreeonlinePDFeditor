@@ -49,6 +49,15 @@ describe('Home & navigation', () => {
     await pg.click('#toolGrid a[href="#fill-forms"]'); await pg.waitForFunction(() => VIEW === 'editor');
     assert.equal(await pg.evaluate(() => S.pages[0].annots[0].text), 'kept', 'edits kept after going back');
   });
+  t('AmirHesamTech branding: header, result screen, tab title and inside every saved PDF', async pg => {
+    await pg.goto(H.APP); assert.match(await pg.title(), /AmirHesamTech/);
+    assert.match(await pg.textContent('#home .topbar'), /AMIRHESAMTECH/); assert.match(await pg.textContent('#home .foot'), /AmirHesamTech/);
+    await H.openWork(pg, 'split', [fx.three]); await H.seg(pg, 'mode', 'every'); await H.go(pg);
+    assert.match(await pg.textContent('#fDone .credit'), /AMIRHESAMTECH/);
+    for (const b of Object.values(await H.unzip((await H.grab(pg)).bytes))) { const r = await H.inspect(b); assert.match(r.producer, /AmirHesamTech/); assert.match(r.creator, /amirhesamtech\.com/); }
+    await H.openEditor(pg, fx.single); assert.match(await pg.textContent('header .logo'), /AMIRHESAMTECH/);
+    assert.match((await H.inspect((await H.grab(pg, '#saveBtn')).bytes)).producer, /AmirHesamTech/);
+  });
   t('wrong file type is rejected with a message', async pg => {
     await H.openTool(pg, 'merge', [fx.png]); assert.match(await H.toastText(pg), /PDF/);
     await H.openTool(pg, 'jpg-to-pdf', [fx.single]); assert.match(await H.toastText(pg), /image/i);
@@ -183,6 +192,11 @@ describe('Watermark', () => {
   t('non-Latin watermark is drawn as an image', async pg => {
     await H.openWork(pg, 'watermark', [fx.single]); await pg.fill('#wmT', 'محرمانه'); await H.go(pg);
     const r = await H.inspect((await H.grab(pg)).bytes); assert.ok(r.pages[0].images >= 1);
+  });
+  t('watermark does not leak into the next file (regression)', async pg => {
+    await H.openWork(pg, 'watermark', [fx.single]); await pg.fill('#wmT', 'LEAK'); await H.go(pg);
+    await H.openEditor(pg, fx.two); assert.equal(await pg.evaluate(() => S.watermark), null);
+    const r = await H.inspect((await H.grab(pg, '#saveBtn')).bytes); assert.doesNotMatch(r.text, /LEAK/);
   });
   t('empty text shows a message', async pg => {
     await H.openWork(pg, 'watermark', [fx.single]); await pg.fill('#wmT', ' '); await pg.click('#fGo'); assert.match(await H.toastText(pg), /watermark text/);

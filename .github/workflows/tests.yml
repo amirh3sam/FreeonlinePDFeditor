@@ -20,7 +20,9 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm test
 
-  # 2) the live Vercel site, once it serves this exact commit
+  # 2) the live Vercel site: confirm it serves this exact (fully tested) build,
+  #    then smoke-test the key flows there with the real CDN libraries.
+  #    (A full 58-test run would trip Vercel's bot protection.)
   production:
     needs: e2e
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
@@ -48,7 +50,7 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - name: Smoke check of the live page
         run: node smoke.js
-      - name: E2E against production
+      - name: Live smoke tests against production
         run: |
           set -o pipefail
-          npm test 2>&1 | tee result.txt || { node report.js result.txt; exit 1; }
+          npm run test:live 2>&1 | tee result.txt || { node report.js result.txt; exit 1; }

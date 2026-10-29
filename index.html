@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PDF Studio — Free Online PDF Editor</title>
+<title>PDF Studio by AmirHesamTech — Free Online PDF Tools</title>
 <meta name="description" content="Free online PDF editor. Fill forms, edit text, sign, highlight, draw, add notes, merge, split, compress and convert PDFs — 100% in your browser.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <style>
-:root{--bg:#0a0e14;--panel:#111722;--panel2:#161e2b;--line:#222c3b;--text:#e6edf3;--mute:#8b98a9;--teal:#3fe0c5;--purple:#a98bff;--danger:#ff6b81}
+:root{--bg:#05080f;--panel:#0a1020;--panel2:#10162c;--line:#263451;--text:#dfe8f5;--mute:#7f94af;--teal:#00f7ff;--purple:#ff00ff;--green:#00ff41;--yellow:#fff200;--danger:#ff4d6d;--mono:'JetBrains Mono',Consolas,'Liberation Mono',monospace;--head:'Syne','JetBrains Mono',sans-serif}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;font-size:14px;overflow:hidden}
 button,select,input[type=text],input[type=number]{font:inherit;color:inherit;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:7px 11px}
@@ -178,20 +178,97 @@ label.chk{display:flex;gap:6px;align-items:center;color:var(--mute)}
 #fWork .backbtn{position:static;margin:0 0 16px}
 #edBack{font-weight:600}
 @media (max-width:600px){.backbtn{left:12px;top:10px;padding:6px 10px}}
+
+/* ================= AmirHesamTech brand layer ================= */
+html,body{font-family:var(--mono);font-size:13.5px}
+body,.view,#viewer{background-color:var(--bg);background-image:linear-gradient(rgba(0,247,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(0,247,255,.035) 1px,transparent 1px);background-size:32px 32px}
+.view{background-image:radial-gradient(900px 420px at 50% -8%,rgba(0,247,255,.10),transparent 70%),linear-gradient(rgba(0,247,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(0,247,255,.035) 1px,transparent 1px);background-size:auto,32px 32px,32px 32px}
+button,select,input[type=text],input[type=number]{font-family:var(--mono);border-radius:6px;background:var(--panel2)}
+button:hover{border-color:var(--teal);color:var(--teal)}
+button.on{box-shadow:0 0 0 1px var(--teal) inset,0 0 14px rgba(0,247,255,.25)}
+button.primary,.big{background:var(--teal)!important;color:#05080f!important;border:1px solid var(--teal)!important;text-transform:uppercase;letter-spacing:1.5px;font-weight:700;box-shadow:0 0 18px rgba(0,247,255,.45),0 0 0 1px rgba(0,247,255,.6)}
+button.primary:hover,.big:hover{background:#05080f!important;color:var(--teal)!important;box-shadow:0 0 26px rgba(0,247,255,.6),inset 0 0 12px rgba(0,247,255,.25)}
+.big{border-radius:8px!important;font-family:var(--mono)!important}
+header,#tools,.topbar,#side,.wside{background:rgba(10,16,32,.92)}
+.logo{font-family:var(--head);letter-spacing:.5px}
+.logo i{width:30px;height:30px;border-radius:7px;background:#05080f;border:1.5px solid var(--teal);box-shadow:0 0 10px rgba(0,247,255,.5),inset 0 0 8px rgba(255,0,255,.25);display:inline-flex;align-items:center;justify-content:center;font-style:normal;flex:none}
+.logo i::after{content:'AH';font:700 12px var(--mono);color:var(--teal);text-shadow:0 0 6px var(--teal)}
+.topbar .logo span{display:flex;flex-direction:column;line-height:1.05;font-weight:800;font-size:16px;letter-spacing:1.5px}
+.topbar .logo small{font:500 9.5px var(--mono);color:var(--purple);letter-spacing:1.5px}
+.sitelink{margin-left:auto;font-size:11.5px;letter-spacing:1.5px;color:var(--teal)!important;border:1px solid rgba(0,247,255,.4);padding:7px 12px;border-radius:6px;white-space:nowrap}
+.sitelink:hover{background:rgba(0,247,255,.08);box-shadow:0 0 12px rgba(0,247,255,.3)}
+.topbar nav a{font-family:var(--mono);font-size:11.5px;letter-spacing:1.5px}
+.glowline{height:2px;background:linear-gradient(90deg,var(--teal),var(--purple),var(--green));box-shadow:0 0 12px rgba(0,247,255,.6)}
+.kicker{font-size:12px;letter-spacing:3px;color:var(--teal);margin-bottom:14px;text-shadow:0 0 8px rgba(0,247,255,.5)}
+.hero h1{font-family:var(--head);font-weight:800;letter-spacing:-.5px;text-transform:uppercase}
+.hero h1::after{content:'_';color:var(--teal);animation:blink 1s steps(1) infinite;margin-left:4px}
+@keyframes blink{50%{opacity:0}}
+.hero p{font-size:14.5px}
+.drop h1,.card h3,.wside h2,.tool h3,.donebox h1{font-family:var(--head)}
+.tool{position:relative;background:linear-gradient(180deg,rgba(16,22,44,.9),rgba(10,16,32,.95));border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.tool::before,.tool::after{content:'';position:absolute;width:44px;height:44px;pointer-events:none;transition:.2s}
+.tool::before{left:-1px;top:-1px;border-left:2px solid var(--teal);border-top:2px solid var(--teal);border-top-left-radius:10px}
+.tool::after{right:-1px;bottom:-1px;border-right:2px solid var(--purple);border-bottom:2px solid var(--purple);border-bottom-right-radius:10px}
+.tool:hover{border-color:rgba(0,247,255,.45);box-shadow:0 0 0 1px rgba(0,247,255,.25),0 12px 34px rgba(0,0,0,.5),0 0 24px rgba(0,247,255,.12)}
+.tool:hover::before,.tool:hover::after{width:70px;height:70px}
+.tool .ic{background:transparent!important;border:1.5px solid var(--c);color:var(--c);box-shadow:0 0 12px color-mix(in srgb,var(--c) 45%,transparent),inset 0 0 10px color-mix(in srgb,var(--c) 25%,transparent);text-shadow:0 0 8px var(--c);border-radius:8px}
+.tool h3{font-size:17px;letter-spacing:.3px}
+.tool p{font-size:12.5px}
+.pickzone{border-color:rgba(0,247,255,.35);background:rgba(10,16,32,.7);border-radius:12px}
+.badge{color:var(--green);letter-spacing:1px;font-size:12px}
+.wside label.t{font-family:var(--mono);color:var(--teal);letter-spacing:2px;font-size:11px}
+.pcard{background:var(--panel2)}
+.pcard.sel{border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,247,255,.18),0 0 18px rgba(0,247,255,.3)}
+.done-ic{background:#05080f;border:2px solid var(--green);color:var(--green);box-shadow:0 0 24px rgba(0,255,65,.45),inset 0 0 14px rgba(0,255,65,.25);text-shadow:0 0 10px var(--green)}
+.donebox #fInfo b{color:var(--green)!important;text-shadow:0 0 10px rgba(0,255,65,.5)}
+.foot{border-top:1px solid var(--line);display:flex;flex-direction:column;gap:10px;align-items:center;font-size:12px;letter-spacing:.5px}
+.foot .status{color:var(--green);letter-spacing:2px;display:flex;align-items:center;gap:8px}
+.foot .status b{color:var(--mute)}
+.foot .dot{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.35}}
+.foot .tag{color:var(--purple);letter-spacing:3px;font-weight:700;text-shadow:0 0 10px rgba(255,0,255,.5);font-size:11.5px;text-align:center}
+.foot .links{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+.foot .links a{color:var(--teal);text-decoration:none}
+.foot .copy{color:var(--mute);font-size:11px}
+#toast{font-family:var(--mono);border-color:rgba(0,247,255,.4);box-shadow:0 0 18px rgba(0,247,255,.2)}
+#hint{background:var(--teal);font-family:var(--mono);box-shadow:0 0 18px rgba(0,247,255,.5)}
+.card{border-color:rgba(0,247,255,.25);box-shadow:0 0 30px rgba(0,247,255,.08)}
+.tcard b{font-family:var(--head)}
+.th.cur{box-shadow:0 0 14px rgba(0,247,255,.35)}
+.page{box-shadow:0 0 0 1px rgba(0,247,255,.12),0 8px 34px rgba(0,0,0,.6)}
+.sx .arr span{box-shadow:0 0 14px rgba(0,247,255,.7)}
+#tools button{font-size:12.5px}
+.backbtn{font-family:var(--mono);letter-spacing:1px}
+header .logo .wide{text-transform:uppercase;letter-spacing:1.5px;font-weight:800;flex-direction:column;line-height:1.05}
+header .logo .wide:not([style*=none]){display:inline-flex}
+header .logo small{font:500 9.5px var(--mono);color:var(--purple);letter-spacing:1.5px}
+.credit{margin-top:26px;font-size:11.5px;letter-spacing:2.5px;color:var(--mute)}
+.credit a{color:var(--teal);text-decoration:none;text-shadow:0 0 8px rgba(0,247,255,.5)}
+@media (max-width:760px){header .logo .wide{display:none!important}}
+@media (max-width:860px){.sitelink{display:none}}
+@media (max-width:600px){.topbar .logo span{font-size:14px}.kicker{font-size:10.5px;letter-spacing:2px}}
 </style>
 </head>
 <body>
 <div id="home" class="view">
-  <div class="topbar"><div class="logo homebtn"><i></i>PDF Studio</div><nav class="tnav"></nav></div>
+  <div class="topbar"><div class="logo homebtn"><i></i><span>PDF STUDIO<small>// AMIRHESAMTECH</small></span></div><nav class="tnav"></nav><a class="sitelink" href="https://amirhesamtech.com/">AMIRHESAMTECH.COM ↗</a></div>
+  <div class="glowline"></div>
   <section class="hero">
+    <div class="kicker">PDF / TOOLS / FREE / PRIVATE</div>
     <h1>Every PDF tool you need, free</h1>
     <p>Merge, split, compress, convert, edit, sign and fill PDFs in a few clicks. Everything runs in your browser. Your files never leave your device.</p>
   </section>
   <div class="tgrid" id="toolGrid"></div>
-  <div class="foot">No uploads · No sign-up · No watermarks · Made by <a href="https://amirhesamtech.com">AmirHesam Tech</a></div>
+  <div class="foot">
+    <div class="status"><span class="dot"></span>SYSTEM ONLINE <b>//</b> FILES NEVER LEAVE YOUR DEVICE</div>
+    <div class="tag">AUTOMATE // TEST // BUILD // DEPLOY // REPEAT</div>
+    <div class="links"><a href="https://amirhesamtech.com/guides/">Guides</a><a href="https://amirhesamtech.com/apps/">Free Apps</a><a href="https://amirhesamtech.com/games/">Games</a><a href="https://amirhesamtech.com/media-lab/">Media Lab</a><a href="https://www.tiktok.com/@techwithamirh3sam">TikTok</a><a href="https://github.com/amirh3sam/FreeonlinePDFeditor">GitHub</a></div>
+    <div class="copy">© 2026 AmirHesamTech · No uploads · No sign-up · No watermarks</div>
+  </div>
 </div>
 <div id="flow" class="view hide">
-  <div class="topbar"><div class="logo homebtn"><i></i>PDF Studio</div><nav class="tnav"></nav></div>
+  <div class="topbar"><div class="logo homebtn"><i></i><span>PDF STUDIO<small>// AMIRHESAMTECH</small></span></div><nav class="tnav"></nav><a class="sitelink" href="https://amirhesamtech.com/">AMIRHESAMTECH.COM ↗</a></div>
+  <div class="glowline"></div>
   <section id="fSelect">
     <button class="backbtn" id="bkSelect">← All tools</button>
     <div class="hero">
@@ -214,12 +291,13 @@ label.chk{display:flex;gap:6px;align-items:center;color:var(--mute)}
       <h1 id="fDoneTitle">Your file is ready</h1><p id="fInfo"></p>
       <div class="row"><button class="big" id="fDl">⬇ Download</button></div>
       <div class="row"><button id="fBack">← Back to options</button><button id="fEdit">✎ Open in editor</button><button id="fHome">All tools</button></div>
+      <div class="credit">BUILT BY <a href="https://amirhesamtech.com/">AMIRHESAMTECH</a> // FREE & PRIVATE</div>
     </div>
   </section>
 </div>
 <div id="app">
   <header>
-    <div class="logo"><i></i><span class="wide">PDF Studio</span></div>
+    <div class="logo"><i></i><span class="wide">PDF Studio<small>// AMIRHESAMTECH</small></span></div>
     <button id="edBack" title="Back to all tools">←<span class="wide">&nbsp;All tools</span></button>
     <button id="pagesBtn">☰</button>
     <span id="fname"></span>
@@ -374,7 +452,7 @@ async function loadPdf(file) {
   for (let i = 0; i < pdf.numPages; i++) { const pp = await proxy(di, i); rotCache.set(di + ':' + i, pp.rotate); const vp = pp.getViewport({ scale: 1 }); out.push({ id: uid(), doc: di, index: i, rot: 0, W: vp.width, H: vp.height, annots: [] }); }
   return out;
 }
-function resetDoc(name) { S.undo = []; S.redo = []; S.sel = null; S.pageNums = null; S.dirty = false; S.name = name.replace(/\.(pdf|png|jpe?g|webp|gif|heic)$/i, '') || 'document'; $('#fname').textContent = /\.pdf$/i.test(name) ? name : S.name + '.pdf'; }
+function resetDoc(name) { S.undo = []; S.redo = []; S.sel = null; S.pageNums = null; S.watermark = null; S.dirty = false; S.name = name.replace(/\.(pdf|png|jpe?g|webp|gif|heic)$/i, '') || 'document'; $('#fname').textContent = /\.pdf$/i.test(name) ? name : S.name + '.pdf'; }
 async function openFile(file) {
   if (!file) return;
   if (/^image\//.test(file.type)) { S.pages = []; resetDoc(file.name); await addImagePages([file]); return; }
@@ -779,7 +857,7 @@ $('#sigUse').onclick = async () => {
 };
 
 /* ---------- tools & props ---------- */
-const SW = ['#111111', '#e11d48', '#1d4ed8', '#16a34a', HL, '#3fe0c5', '#a98bff'];
+const SW = ['#111111', '#e11d48', '#1d4ed8', '#16a34a', HL, '#00b8c4', '#c026d3'];
 SW.forEach(c => { const b = document.createElement('button'); b.className = 'sw'; b.style.background = c; b.dataset.c = c; b.onclick = () => setColor(c); $('#swatches').append(b); });
 function setColor(c) {
   S.color = c; $('#colorPick').value = c; document.querySelectorAll('#swatches .sw').forEach(b => b.classList.toggle('on', b.dataset.c === c));
@@ -929,9 +1007,10 @@ async function fillForm(lib, doc, helv) {
   try { form.flatten({ updateFieldAppearances: false }); } catch (e) { console.warn('flatten', e); }
   return raster;
 }
+function brandPdf(doc) { try { doc.setCreator('PDF Studio by AmirHesamTech (amirhesamtech.com)'); doc.setProducer('PDF Studio by AmirHesamTech'); } catch (e) { } return doc; }
 async function buildPdf(opts = {}) {
   const { PDFDocument, StandardFonts, rgb, degrees, BlendMode, LineCapStyle, PDFHexString } = PDFLib;
-  const out = await PDFDocument.create();
+  const out = brandPdf(await PDFDocument.create());
   const fonts = {}; const getFont = async k => fonts[k] || (fonts[k] = await out.embedFont({ sans: StandardFonts.Helvetica, serif: StandardFonts.TimesRoman, mono: StandardFonts.Courier }[k]));
   const helv = await getFont('sans');
   const libs = new Map(), rasterFields = new Map(), imgCache = new Map();
@@ -1043,7 +1122,7 @@ async function renderPdfPages(bytes, dpi, cb) {
   pdf.destroy();
 }
 async function compressPdf(dpi, q) {
-  const src = await buildPdf(); const out = await PDFLib.PDFDocument.create();
+  const src = await buildPdf(); const out = brandPdf(await PDFLib.PDFDocument.create());
   await renderPdfPages(src, dpi, async (c, vp1) => { const im = await out.embedJpg(dataUrlBytes(c.toDataURL('image/jpeg', q))); const pg = out.addPage([vp1.width, vp1.height]); pg.drawImage(im, { x: 0, y: 0, width: vp1.width, height: vp1.height }); });
   return { before: src.byteLength, bytes: await out.save() };
 }
@@ -1094,7 +1173,7 @@ function openTool(view) {
   if (view === 'extract') { const go = e => busy($('#doExtract'), 'Building…', async () => { const set = parseRanges($('#rangeIn').value, S.pages.length); if (!set) return toast('Enter pages like 1-3, 5'); if (await saveBytes(S.name + '-pages.pdf', await buildPdf({ only: set }))) { toast(`Saved ${set.size} page${set.size > 1 ? 's' : ''} ✓`); done(); } }); $('#doExtract').onclick = go; $('#rangeIn').onkeydown = e => { e.stopPropagation(); if (e.key === 'Enter') go(); }; setTimeout(() => $('#rangeIn').focus(), 50); }
   if (view === 'split') $('#doSplit').onclick = e => busy(e.currentTarget, 'Splitting…', async () => {
     const full = await buildPdf(); const lib = await PDFLib.PDFDocument.load(full); const zip = new JSZip(); const n = lib.getPageCount(); const pad = String(n).length;
-    for (let i = 0; i < n; i++) { const d = await PDFLib.PDFDocument.create(); const [pg] = await d.copyPages(lib, [i]); d.addPage(pg); zip.file(`${S.name}-page-${String(i + 1).padStart(pad, '0')}.pdf`, await d.save()); }
+    for (let i = 0; i < n; i++) { const d = brandPdf(await PDFLib.PDFDocument.create()); const [pg] = await d.copyPages(lib, [i]); d.addPage(pg); zip.file(`${S.name}-page-${String(i + 1).padStart(pad, '0')}.pdf`, await d.save()); }
     if (await saveBytes(S.name + '-split.zip', await zip.generateAsync({ type: 'blob' }))) { toast(`Split into ${n} PDFs ✓`); done(); }
   });
   if (view === 'jpg') $('#doJpg').onclick = e => busy(e.currentTarget, 'Rendering…', async () => {
@@ -1145,32 +1224,32 @@ async function drawWatermarkPdf(out, page, p, conv, R, helvB) {
 
 /* ---------- home + tool pages (router) ---------- */
 const TK = [
-  { id: 'merge', t: 'Merge PDF', d: 'Combine PDFs in the order you want, in one file.', ic: '⊕', c: '#3fe0c5', accept: 'pdf', multi: true, btn: 'Select PDF files', go: 'Merge PDF' },
-  { id: 'split', t: 'Split PDF', d: 'Pull out pages, split by ranges, or turn every page into its own PDF.', ic: '✂', c: '#7dd3fc', accept: 'pdf', btn: 'Select PDF file', go: 'Split PDF' },
-  { id: 'compress', t: 'Compress PDF', d: 'Make a PDF smaller while keeping it readable.', ic: '🗜', c: '#86efac', accept: 'pdf', btn: 'Select PDF file', go: 'Compress PDF' },
-  { id: 'edit', t: 'Edit PDF', d: 'Change existing text, add text, images, shapes, arrows and notes.', ic: '✎', c: '#a98bff', accept: 'pdf', editor: true, btn: 'Select PDF file' },
-  { id: 'sign', t: 'Sign PDF', d: 'Draw or type your signature and place it anywhere.', ic: '✍', c: '#f0abfc', accept: 'pdf', editor: true, btn: 'Select PDF file' },
-  { id: 'fill-forms', t: 'Fill PDF forms', d: 'Type into form fields, tick boxes and pick options.', ic: '☑', c: '#fcd34d', accept: 'pdf', editor: true, btn: 'Select PDF file' },
-  { id: 'organize', t: 'Organize PDF', d: 'Reorder, delete, rotate and add pages.', ic: '▦', c: '#fda4af', accept: 'pdf', btn: 'Select PDF file', go: 'Save PDF' },
-  { id: 'rotate', t: 'Rotate PDF', d: 'Rotate one page or all of them at once.', ic: '⟳', c: '#93c5fd', accept: 'pdf', btn: 'Select PDF file', go: 'Rotate PDF' },
-  { id: 'page-numbers', t: 'Add page numbers', d: 'Number your pages, with the position and format you want.', ic: '#', c: '#c4b5fd', accept: 'pdf', btn: 'Select PDF file', go: 'Add page numbers' },
-  { id: 'watermark', t: 'Add watermark', d: 'Stamp text like DRAFT or CONFIDENTIAL over your pages.', ic: '💧', c: '#67e8f9', accept: 'pdf', btn: 'Select PDF file', go: 'Add watermark' },
-  { id: 'pdf-to-jpg', t: 'PDF to JPG', d: 'Turn each page into a high-quality JPG image.', ic: '🖼', c: '#fdba74', accept: 'pdf', btn: 'Select PDF file', go: 'Convert to JPG' },
-  { id: 'jpg-to-pdf', t: 'JPG to PDF', d: 'Turn photos and images into one PDF.', ic: '📷', c: '#bef264', accept: 'img', multi: true, btn: 'Select images', go: 'Convert to PDF' },
+  { id: 'merge', t: 'Merge PDF', d: 'Combine PDFs in the order you want, in one file.', ic: '⊕', c: '#00f7ff', accept: 'pdf', multi: true, btn: 'Select PDF files', go: 'Merge PDF' },
+  { id: 'split', t: 'Split PDF', d: 'Pull out pages, split by ranges, or turn every page into its own PDF.', ic: '✂', c: '#ff00ff', accept: 'pdf', btn: 'Select PDF file', go: 'Split PDF' },
+  { id: 'compress', t: 'Compress PDF', d: 'Make a PDF smaller while keeping it readable.', ic: '🗜', c: '#00ff41', accept: 'pdf', btn: 'Select PDF file', go: 'Compress PDF' },
+  { id: 'edit', t: 'Edit PDF', d: 'Change existing text, add text, images, shapes, arrows and notes.', ic: '✎', c: '#fff200', accept: 'pdf', editor: true, btn: 'Select PDF file' },
+  { id: 'sign', t: 'Sign PDF', d: 'Draw or type your signature and place it anywhere.', ic: '✍', c: '#00f7ff', accept: 'pdf', editor: true, btn: 'Select PDF file' },
+  { id: 'fill-forms', t: 'Fill PDF forms', d: 'Type into form fields, tick boxes and pick options.', ic: '☑', c: '#ff00ff', accept: 'pdf', editor: true, btn: 'Select PDF file' },
+  { id: 'organize', t: 'Organize PDF', d: 'Reorder, delete, rotate and add pages.', ic: '▦', c: '#00ff41', accept: 'pdf', btn: 'Select PDF file', go: 'Save PDF' },
+  { id: 'rotate', t: 'Rotate PDF', d: 'Rotate one page or all of them at once.', ic: '⟳', c: '#fff200', accept: 'pdf', btn: 'Select PDF file', go: 'Rotate PDF' },
+  { id: 'page-numbers', t: 'Add page numbers', d: 'Number your pages, with the position and format you want.', ic: '#', c: '#00f7ff', accept: 'pdf', btn: 'Select PDF file', go: 'Add page numbers' },
+  { id: 'watermark', t: 'Add watermark', d: 'Stamp text like DRAFT or CONFIDENTIAL over your pages.', ic: '💧', c: '#ff00ff', accept: 'pdf', btn: 'Select PDF file', go: 'Add watermark' },
+  { id: 'pdf-to-jpg', t: 'PDF to JPG', d: 'Turn each page into a high-quality JPG image.', ic: '🖼', c: '#00ff41', accept: 'pdf', btn: 'Select PDF file', go: 'Convert to JPG' },
+  { id: 'jpg-to-pdf', t: 'JPG to PDF', d: 'Turn photos and images into one PDF.', ic: '📷', c: '#fff200', accept: 'img', multi: true, btn: 'Select images', go: 'Convert to PDF' },
 ];
 const F = { tool: null, stage: 'select', files: [], images: [], sel: new Set(), mode: 'extract', opt: {}, result: null };
 let VIEW = 'home';
 function navHtml() { const L = { merge: 'Merge', split: 'Split', compress: 'Compress', edit: 'Edit', sign: 'Sign', 'fill-forms': 'Fill forms', 'pdf-to-jpg': 'PDF → JPG', 'jpg-to-pdf': 'JPG → PDF' }; return Object.entries(L).map(([id, t]) => `<a href="#${id}">${t}</a>`).join('') + '<a href="#">All tools</a>'; }
 document.querySelectorAll('.tnav').forEach(n => n.innerHTML = navHtml());
-$('#toolGrid').innerHTML = TK.map(t => `<a class="tool" href="#${t.id}"><div class="ic" style="background:${t.c}">${t.ic}</div><h3>${t.t}</h3><p>${t.d}</p></a>`).join('');
+$('#toolGrid').innerHTML = TK.map(t => `<a class="tool" href="#${t.id}"><div class="ic" style="--c:${t.c}">${t.ic}</div><h3>${t.t}</h3><p>${t.d}</p></a>`).join('');
 document.querySelectorAll('.homebtn').forEach(b => b.onclick = () => { location.hash = ''; route(); });
 const hl = document.querySelector('header .logo'); hl.classList.add('homebtn'); hl.title = 'All tools'; hl.onclick = () => { location.hash = ''; route(); };
 function showView(v) { VIEW = v; $('#home').classList.toggle('hide', v !== 'home'); $('#flow').classList.toggle('hide', v !== 'flow'); }
 function showStage(st) { F.stage = st; $('#fSelect').classList.toggle('hide', st !== 'select'); $('#fWork').classList.toggle('hide', st !== 'work'); $('#fDone').classList.toggle('hide', st !== 'done'); $('#flow').scrollTop = 0; }
 function route() {
   const id = location.hash.slice(1); const t = TK.find(x => x.id === id);
-  if (!t) { showView('home'); document.title = 'PDF Studio — Free Online PDF Tools'; return; }
-  document.title = t.t + ' — Free & private | PDF Studio';
+  if (!t) { showView('home'); document.title = 'PDF Studio by AmirHesamTech — Free Online PDF Tools'; return; }
+  document.title = t.t + ' — Free & private | PDF Studio by AmirHesamTech';
   if (t.editor && S.pages.length && F.tool === t.id && F.stage === 'editor') { showView('editor'); return; }
   showView('flow');
   if (F.tool !== t.id) { F.tool = t.id; F.files = []; F.images = []; F.sel = new Set(); F.result = null; F.mode = 'extract'; showStage('select'); }
@@ -1339,7 +1418,7 @@ function layoutImages() {
 async function zipOf(entries) { const zip = new JSZip(); entries.forEach(([n, d]) => zip.file(n, d)); return zip.generateAsync({ type: 'blob' }); }
 async function splitBy(groups) {
   const full = await buildPdf(); const lib = await PDFLib.PDFDocument.load(full); const out = [];
-  for (const [label, idx] of groups) { const d = await PDFLib.PDFDocument.create(); (await d.copyPages(lib, idx)).forEach(pg => d.addPage(pg)); out.push([`${S.name}-${label}.pdf`, await d.save()]); }
+  for (const [label, idx] of groups) { const d = brandPdf(await PDFLib.PDFDocument.create()); (await d.copyPages(lib, idx)).forEach(pg => d.addPage(pg)); out.push([`${S.name}-${label}.pdf`, await d.save()]); }
   return out;
 }
 $('#fGo').onclick = () => busy($('#fGo'), 'Working…', async () => {

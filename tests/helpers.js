@@ -29,6 +29,7 @@ async function newPage(viewport = { width: 1300, height: 900 }) {
   const pg = await ctx.newPage();
   pg.errors = [];
   pg.on('pageerror', e => pg.errors.push(e.message));
+  if (process.env.LIVE_CDN) return pg; // production smoke: load the real libraries from cdnjs / Google Fonts
   await pg.route('https://cdnjs.cloudflare.com/**', r => {
     const f = CDN[r.request().url().split('/').pop()];
     return f ? r.fulfill({ body: fs.readFileSync(f), contentType: 'text/javascript' }) : r.abort();
@@ -115,8 +116,9 @@ async function inspect(bytes) {
     const annots = await p.getAnnotations();
     pages.push({ rotate: p.rotate, w: Math.round(vp.width), h: Math.round(vp.height), text, images, annots });
   }
+  const meta = await doc.getMetadata();
   await doc.destroy();
-  return { count: pages.length, pages, text: pages.map(p => p.text).join(' | ') };
+  return { count: pages.length, pages, text: pages.map(p => p.text).join(' | '), producer: meta.info.Producer, creator: meta.info.Creator };
 }
 async function unzip(bytes) { const z = await JSZip.loadAsync(bytes); const out = {}; for (const n of Object.keys(z.files).sort()) out[n] = await z.files[n].async('nodebuffer'); return out; }
 function jpegSize(buf) {
